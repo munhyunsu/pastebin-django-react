@@ -19,12 +19,3 @@ jobs:
           kill -2 $(ps aux | grep ' [n]pm start' | awk '{print $2}') &> /dev/null
           cd backend
           echo $(pwd)
-          python3 -m venv venv
-          source venv/bin/activate
-          pip3 install --upgrade -r requirements.txt
-          nohup python3 manage.py runserver &
-          deactivate
-          cd ../frontend
-          echo $(pwd)
-          npm install
-          nohup npm start &
