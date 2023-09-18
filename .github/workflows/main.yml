@@ -15,10 +15,10 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}
           echo $(pwd)
-          if [ ps aux | grep ' [p]ython3 manage.py runserver' | awk '{print $2}' ]; then
+          if [ $(ps aux | grep ' [p]ython3 manage.py runserver' | awk '{print $2}') ]; then
             kill -2 $(ps aux | grep ' [p]ython3 manage.py runserver' | awk '{print $2}') &> /dev/null
           fi
-          if [ ps aux | grep ' [n]pm start' | awk '{print $2}' ]; then
+          if [ $(ps aux | grep ' [n]pm start' | awk '{print $2}') ]; then
             kill -2 $(ps aux | grep ' [n]pm start' | awk '{print $2}') &> /dev/null
           fi
           cd backend
