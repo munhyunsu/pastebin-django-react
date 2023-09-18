@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Run
         run: |
-          cd ./${{ github.event.repository.name }}
+          cd /home/munhyunsu/${{ github.event.repository.name }}
           kill -2 $(ps aux | grep ' [p]ython3 manage.py runserver' | awk '{print $2}')
           kill -2 $(ps aux | grep ' [n]pm start' | awk '{print $2}')
           cd backend
