@@ -23,3 +23,11 @@ jobs:
           fi
           cd backend
           echo $(pwd)
+          python3 -m venv venv
+          source venv/bin/activate
+          pip3 install --upgrade -r requirements.txt
+          nohup python3 manage.py runserver &
+          deactivate
+          cd ../frontend
+          npm install
+          nohup npm start &
