@@ -24,6 +24,9 @@ jobs:
           if [ $(ps aux | grep ' [n]pm start' | awk '{print $2}') ]; then
             kill -9 $(ps aux | grep ' [n]pm start' | awk '{print $2}') &> /dev/null
           fi
+          if [ $(ps aux | grep '[s]tart.js' | awk '{print $2}') ]; then
+            kill -9 $(ps aux | grep '[s]tart.js' | awk '{print $2}') &> /dev/null
+          fi
           cd backend
           echo $(pwd)
           python3 -m venv venv
@@ -34,5 +37,5 @@ jobs:
           cd ../frontend
           npm install
           PUBLIC_URL="/pastebin"
-          echo ${PUBLIC_URL} > .env
+          echo PUBLIC_URL=${PUBLIC_URL} > .env
           nohup npm start &
