@@ -33,4 +33,6 @@ jobs:
           deactivate
           cd ../frontend
           npm install
+          PUBLIC_URL="/pastebin"
+          echo ${PUBLIC_URL} > .env
           nohup npm start &
