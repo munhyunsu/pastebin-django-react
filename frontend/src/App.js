@@ -60,7 +60,7 @@ function App() {
 
   useEffect(() => {
     fetchPastes();
-  });
+  }, []);
 
   return <WritableTimeline pastes={pastes} />;
 }
