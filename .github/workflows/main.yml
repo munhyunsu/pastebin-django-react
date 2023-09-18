@@ -10,7 +10,9 @@ jobs:
     runs-on: [ self-hosted ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          path: /home/munhyunsu/${{ github.event.repository.name }}
       - name: Run
         run: |
           cd /home/munhyunsu/${{ github.event.repository.name }}
