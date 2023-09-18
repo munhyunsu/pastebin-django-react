@@ -3,7 +3,7 @@ import './App.css';
 
 function WriteBar() {
   const [formData, setFormData] = useState({
-    username: '',
+    user: '',
     content: ''
   });
 
@@ -16,7 +16,7 @@ function WriteBar() {
   };
 
   const  handleSubmit = (e) => {
-    fetch("http://34.64.47.124/pastebin/api/v1/pastes", {
+    fetch("http://34.64.47.124/pastebin/api/v1/pastes/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -29,7 +29,7 @@ function WriteBar() {
   return (
     <form onSubmit={handleSubmit}>
       <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Enter username" value={formData.username} name="username" onChange={handleChange} required></input>
+      <input type="text" placeholder="Enter username" value={formData.username} name="user" onChange={handleChange} required></input>
       <label for="content"><b>Content</b></label>
       <textarea name="content" placeholder="Enter content" value={formData.content} onChange={handleChange} required></textarea>
       <button type="submit">Paste Note</button>
@@ -73,7 +73,7 @@ function App() {
   const [pastes, setPastes] = useState([]);
 
   const fetchPastes = (() => {
-    fetch("http://34.64.47.124/pastebin/api/v1/pastes")
+    fetch("http://34.64.47.124/pastebin/api/v1/pastes/")
       .then(response => {
         return response.json();
       })
