@@ -1,10 +1,5 @@
+import React, { useEffect, useState } from "react";
 import './App.css';
-
-const PASTES = [
-  {"id": 1, "user": "user1", "utime": "2023-09-17T14:04:04.886488Z", "content": "user1 content"},
-  {"id": 2, "user": "user2", "utime": "2023-09-17T14:04:12.778037Z", "content": "user2 content"},
-  {"id": 3, "user": "user2", "utime": "2023-09-17T14:06:34.077729Z", "content": "user2 content"}
-];
 
 function WriteBar() {
   return (
@@ -51,7 +46,23 @@ function WritableTimeline({ pastes }) {
 }
 
 function App() {
-  return <WritableTimeline pastes={PASTES} />;
+  const [pastes, setPastes] = useState([]);
+
+  const fetchPastes = (() => {
+    fetch("http://127.0.0.1:8888/pastes/")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        setPastes(data);
+      })
+  });
+
+  useEffect(() => {
+    fetchPastes();
+  });
+
+  return <WritableTimeline pastes={pastes} />;
 }
 
 export default App;
