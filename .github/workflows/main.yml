@@ -4,9 +4,6 @@ on:
   push:
     branches: [ main ]
 
-env:
-  PUBLIC_URL: /pastebin
-
 jobs:
   deploy:
     name: Deploy
@@ -35,10 +32,10 @@ jobs:
           source venv/bin/activate
           pip3 install --upgrade -r requirements.txt
           python3 manage.py migrate
-          nohup python3 manage.py runserver &
+          # nohup python3 manage.py runserver &
           deactivate
           cd ../frontend
           npm install
           PUBLIC_URL="/pastebin"
           echo PUBLIC_URL=${PUBLIC_URL} > .env
-          nohup npm start &
+          # nohup npm start &
