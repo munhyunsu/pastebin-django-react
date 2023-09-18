@@ -49,7 +49,7 @@ function App() {
   const [pastes, setPastes] = useState([]);
 
   const fetchPastes = (() => {
-    fetch("http://127.0.0.1:8888/pastes/")
+    fetch("http://34.64.47.124/pastebin/api/v1/")
       .then(response => {
         return response.json();
       })
