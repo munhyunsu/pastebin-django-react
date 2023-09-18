@@ -1,0 +1,24 @@
+name: CICD basic
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: [ self-hosted ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run
+        run: |
+          cd ${{ github.event.repository.name }}
+          kill -2 $(ps aux | grep ' [p]ython3 manage.py runserver' | awk '{print $2}')
+          kill -2 $(ps aux | grep ' [n]pm start' | awk '{print $2}')
+          cd backend
+          source venv/bin/activate
+          nohub python3 manage.py runserver &
+          deactivate
+          cd ../frontend
+          nohub npm start &
