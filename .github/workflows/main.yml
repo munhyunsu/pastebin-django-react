@@ -14,14 +14,4 @@ jobs:
       - name: Run
         run: |
           cd ${GITHUB_ACTION_PATH}
-          kill -2 $(ps aux | grep ' [p]ython3 manage.py runserver' | awk '{print $2}') &> /dev/null
-          kill -2 $(ps aux | grep ' [n]pm start' | awk '{print $2}') &> /dev/null
-          cd backend
-          python3 -m venv venv
-          source venv/bin/activate
-          pip3 install --upgrade -r requirements.txt
-          nohup python3 manage.py runserver &
-          deactivate
-          cd ../frontend
-          npm install
-          nohup npm start &
+          echo $(pwd)
