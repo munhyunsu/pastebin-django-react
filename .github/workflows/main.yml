@@ -11,11 +11,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          path: /home/munhyunsu/${{ github.event.repository.name }}
       - name: Run
         run: |
-          cd /home/munhyunsu/${{ github.event.repository.name }}
+          cd ${{ github.event.repository.name }}
+          pwd
           kill -2 $(ps aux | grep ' [p]ython3 manage.py runserver' | awk '{print $2}') &> /dev/null
           kill -2 $(ps aux | grep ' [n]pm start' | awk '{print $2}') &> /dev/null
           cd backend
