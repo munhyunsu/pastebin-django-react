@@ -11,8 +11,8 @@ jobs:
     steps:
       - name: Kill running servers
         run: |
-          supervisorctl stop django
-          supervisorctl stop react
+          sudo supervisorctl stop django
+          sudo supervisorctl stop react
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run
@@ -25,10 +25,10 @@ jobs:
           source venv/bin/activate
           pip3 install --upgrade -r requirements.txt
           python3 manage.py migrate
-          supervisorctl start django
+          sudo supervisorctl start django
           deactivate
           cd ../frontend
           npm install
           PUBLIC_URL="/pastebin"
           echo PUBLIC_URL=${PUBLIC_URL} > .env
-          supervisorctl start react
+          sudo supervisorctl start react
