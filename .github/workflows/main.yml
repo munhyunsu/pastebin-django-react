@@ -11,15 +11,8 @@ jobs:
     steps:
       - name: Kill running servers
         run: |
-          if [ $(ps aux | grep ' [p]ython3 manage.py runserver' | awk '{print $2}') ]; then
-            kill -2 $(ps aux | grep ' [p]ython3 manage.py runserver' | awk '{print $2}') &> /dev/null
-          fi
-          if [ $(ps aux | grep ' [n]pm start' | awk '{print $2}') ]; then
-            kill -9 $(ps aux | grep ' [n]pm start' | awk '{print $2}') &> /dev/null
-          fi
-          if [ $(ps aux | grep '[s]tart.js' | awk '{print $2}') ]; then
-            kill -9 $(ps aux | grep '[s]tart.js' | awk '{print $2}') &> /dev/null
-          fi
+          supervisorctl stop django
+          supervisorctl stop react
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run
@@ -32,10 +25,10 @@ jobs:
           source venv/bin/activate
           pip3 install --upgrade -r requirements.txt
           python3 manage.py migrate
-          # nohup python3 manage.py runserver &
+          supervisorctl start django
           deactivate
           cd ../frontend
           npm install
           PUBLIC_URL="/pastebin"
           echo PUBLIC_URL=${PUBLIC_URL} > .env
-          # nohup npm start &
+          supervisorctl start react
