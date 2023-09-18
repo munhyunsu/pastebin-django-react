@@ -8,11 +8,9 @@ from pastes.serializers import PasteSerializer
 # Create your views here.
 @csrf_exempt
 def paste_list(request):
-    print('asdasd')
     if request.method == 'GET':
         pastes = Paste.objects.all()
         serializer = PasteSerializer(pastes, many=True)
-        print(serializer.data)
         return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'POST':
