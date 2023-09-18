@@ -2,12 +2,36 @@ import React, { useEffect, useState } from "react";
 import './App.css';
 
 function WriteBar() {
+  const [formData, setFormData] = useState({
+    username: '',
+    content: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const  handleSubmit = (e) => {
+    fetch("http://34.64.47.124/pastebin/api/v1/pastes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+  }
+
   return (
-    <form action="index.html" method="post">
+    <form onSubmit={handleSubmit}>
       <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Enter username" name="username" required></input>
+      <input type="text" placeholder="Enter username" value={formData.username} name="username" onChange={handleChange} required></input>
       <label for="content"><b>Content</b></label>
-      <textarea name="content" placeholder="Enter content" required></textarea>
+      <textarea name="content" placeholder="Enter content" value={formData.content} onChange={handleChange} required></textarea>
       <button type="submit">Paste Note</button>
     </form>
   );
